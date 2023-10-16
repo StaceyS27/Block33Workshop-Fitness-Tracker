@@ -4,19 +4,12 @@ const { getAllActivities, getActivityById, getActivityByName, createActivity, up
 const { requireUser, requiredNotSent } = require('./utils')
 
 // GET /api/activities/:id/
-router.get('/:activityId/', async (req, res, next) => {
-  const {id} = req.params
+router.get('/:id', async (req, res, next) => {
+  //const {id} = req.params
   try {
-    const singleActivity = await getActivityById(id);
-    console.log(id)
-    if(singleActivity) {
-      res.send(singleActivity);
-    } else {
-      next({
-        name: 'NotFound',
-        message: `No Routines found for Activity ${req.params.activityId}`
-      })
-    }
+    const singleActivity = await getActivityById(req.params.id);
+    res.send(singleActivity)
+    
   } catch (error) {
     next(error);
   }
